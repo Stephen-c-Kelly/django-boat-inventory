@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Boat, Cleaning
+from .models import Boat, Cleaning, Captain
 
 class BoatSerializer(serializers.ModelSerializer):
     clean_for_today=serializers.SerializerMethodField()
@@ -15,4 +15,9 @@ class CleaningSerializer(serializers.ModelSerializer):
     model = Cleaning
     fields = '__all__'
     read_only_fields = ('boat',)
+
+class CaptainSerializer(serializers.ModelSerializer):
+   class Meta:
+      model=Captain
+      fields='__all__'
 

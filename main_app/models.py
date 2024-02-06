@@ -9,6 +9,7 @@ CLEANING_TIME = (
     ('E', 'Evening')
 )
 
+
 # Create your models here.
 class Boat(models.Model):
     make = models.CharField(max_length=100)
@@ -37,4 +38,16 @@ class Cleaning(models.Model):
     return f"{self.get_cleaning_time_display()} on {self.date}"
   class Meta:
     ordering = ['-date']
-  
+
+
+class Captain(models.Model):
+    name = models.CharField(max_length=100)
+    experience = models.IntegerField('Experience (Years)')
+    active_license = models.BooleanField(
+       default=True)
+    description = models.TextField(max_length=250)
+    age = models.IntegerField()
+
+    def __str__(self):
+        license_status = "Active" if self.active_license else "Inactive"
+        return f"{self.name} ({license_status})"

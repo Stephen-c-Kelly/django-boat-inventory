@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
 
-from .models import Boat, Cleaning
-from .serializers import BoatSerializer, CleaningSerializer
+from .models import Boat, Cleaning, Captain
+from .serializers import BoatSerializer, CleaningSerializer, CaptainSerializer
 
 
 class Home(APIView):
@@ -39,3 +39,12 @@ class CleaningDetail(generics.RetrieveUpdateDestroyAPIView):
   def get_queryset(self):
     boat_id = self.kwargs['boat_id']
     return Cleaning.objects.filter(boat_id=boat_id)
+
+class CaptainList(generics.ListCreateAPIView):
+  queryset = Captain.objects.all()
+  serializer_class = CaptainSerializer
+
+class CaptainDetail(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Captain.objects.all()
+  serializer_class = CaptainSerializer
+  lookup_field = 'id'
