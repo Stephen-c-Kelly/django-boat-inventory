@@ -23,7 +23,7 @@ class BoatDetail(generics.RetrieveUpdateDestroyAPIView):
     instance=self.get_object()
     serializer=self.get_serializer(instance)
 
-    captains_not_associated=Captain.objects.exclude(id__in=instance.toys.all())
+    captains_not_associated=Captain.objects.exclude(id__in=instance.captains.all())
     captains_serializer=CaptainSerializer(captains_not_associated, 
     many=True)
     
@@ -68,6 +68,7 @@ class AddCaptainToBoat(APIView):
     captain = Captain.objects.get(id=captain_id)
     boat.captains.add(captain)
     return Response ({'message': f'Captain {captain.name} is added to {boat.make}-{boat.model} '})
+  
   
 class RemoveCaptainFromBoat(APIView):
   def post(self, request, boat_id, captain_id):
