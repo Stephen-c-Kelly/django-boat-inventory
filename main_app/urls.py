@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, BoatList, BoatDetail, CleaningListCreate, CleaningDetail, CaptainList, CaptainDetail, AddCaptainToBoat, RemoveCaptainFromBoat
+from .views import Home, BoatList, BoatDetail, CleaningListCreate, CleaningDetail, CaptainList, CaptainDetail, AddCaptainToBoat, RemoveCaptainFromBoat, CreateUserView, LoginView, VerifyUserView  
 
 urlpatterns = [
   path('', Home.as_view(), name='home'),
@@ -12,7 +12,11 @@ urlpatterns = [
   path('captains/', CaptainList.as_view(), name='captain-list'),
   path('captain/<int:id>/', CaptainDetail.as_view(), name='captain-detail'),
 	path('boat/<int:boat_id>/cleaning/',CleaningListCreate.as_view(), name='cleaning-list-create'),
-	path('boat/<int:boat_id>/cleaning/<int:id>/', CleaningDetail.as_view(),name='cleaning-detail')
+	path('boat/<int:boat_id>/cleaning/<int:id>/', CleaningDetail.as_view(),name='cleaning-detail'),
+  
+  path('users/register/', CreateUserView.as_view(), name='register'),
+  path('users/login/', LoginView.as_view(), name='login'),
+  path('users/token/refresh/', VerifyUserView.as_view(), name='token_refresh'),
 ]
 
 #  boats and cleaning both use <int:id> in the path...unsure if that's an issue.

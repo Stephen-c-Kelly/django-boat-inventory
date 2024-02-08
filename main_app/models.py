@@ -1,7 +1,10 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+
 
 CLEANING_TIME = (
     ('M', 'Morning'),
@@ -36,7 +39,7 @@ class Boat(models.Model):
     description = models.TextField(max_length=250)
     age = models.IntegerField()
     captains=models.ManyToManyField(Captain)
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default='1')
     def clean_for_today(self):
        return self.cleaning_set.filter(date=date.today()).count() >= len(CLEANING_TIME)
     def __str__(self):
